@@ -5,6 +5,8 @@ const helmet = require("helmet");
 
 require("dotenv").config();
 
+const workoutRoutes = require("./routes/workouts.js");
+
 const app = express();
 
 app.use(express.json());
@@ -12,6 +14,8 @@ app.use(cors());
 app.use(helmet());
 
 const PORT = process.env.PORT || 9000;
+
+app.use("/workouts", workoutRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "sanity check for liftlyfe social" });
