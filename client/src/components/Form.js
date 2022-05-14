@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+import FileBase from "react-file-base64";
 
 const initialFormValues = {
   title: "",
   description: "",
   workoutType: "",
-  tags: [],
-  selectedImg: "",
+  tags: "",
+  selectedFile: "",
 };
 
 const Form = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
-  const { title, description, workoutType, tags, selectedImg } = formValues;
+  const { title, description, workoutType, tags } = formValues;
 
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -20,6 +21,8 @@ const Form = () => {
       [name]: valueToUse,
     });
   };
+
+  console.log(formValues);
 
   return (
     <div className="w-full max-w-xs flex justify-center items-center">
@@ -92,22 +95,22 @@ const Form = () => {
             onChange={(e) =>
               setFormValues({
                 ...formValues,
-                tags: e.target.value
-                  .split(",")
-                  .forEach((value) => tags.push(value)),
+                tags: e.target.value.split(","),
               })
             }
             placeholder="Tags (coma separated)"
           />
         </div>
-        <div class="mb-2">
+        <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="tags">
             Image
           </label>
-          <input
-            className="form-control shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          <FileBase
             type="file"
-            id="formFile"
+            multiple={false}
+            onDone={({ base64 }) =>
+              setFormValues({ ...formValues, selectedFile: base64 })
+            }
           />
         </div>
         <div class="flex items-center justify-between">
