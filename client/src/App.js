@@ -1,9 +1,16 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import { Navbar } from "./components";
 
 const App = () => {
   return (
-    <div className="min-h-screen max-w-7xl w-full flex justify-center items-center">
-      <h1 className="text-green-500 font-extrabold underline text-3xl">Test</h1>
+    <div className="min-h-screen max-w-6xl mx-auto">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </div>
   );
 };
