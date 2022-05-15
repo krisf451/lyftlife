@@ -12,7 +12,7 @@ export const fetchAsyncWorkouts = createAsyncThunk(
   async () => {
     const res = await WORKOUTS_API.get("/workouts");
     console.log(res);
-    // return res.data;
+    return res.data.workouts;
   }
 );
 

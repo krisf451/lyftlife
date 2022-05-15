@@ -24,11 +24,11 @@ const Form = () => {
 
   return (
     <div className="flex items-center justify-center w-full">
-      <form class="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4">
-        <div class="mb-4">
+      <form className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4">
+        <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="title"
+            htmlFor="title"
           >
             Title
           </label>
@@ -45,7 +45,7 @@ const Form = () => {
         <div>
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="description"
+            htmlFor="description"
           >
             Description
           </label>
@@ -63,7 +63,7 @@ const Form = () => {
         <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="workoutType"
+            htmlFor="workoutType"
           >
             Workout Type
           </label>
@@ -84,10 +84,10 @@ const Form = () => {
             <option value="hybrid">Hybrid</option>
           </select>
         </div>
-        <div class="mb-2">
+        <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="tags"
+            htmlFor="tags"
           >
             Tags
           </label>
@@ -106,10 +106,10 @@ const Form = () => {
             placeholder="Tags (coma separated)"
           />
         </div>
-        <div class="mb-4">
+        <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="tags"
+            htmlFor="tags"
           >
             Image
           </label>
@@ -121,7 +121,7 @@ const Form = () => {
             }
           />
         </div>
-        <div class="flex items-center justify-start">
+        <div className="flex items-center justify-start">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
