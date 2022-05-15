@@ -22,9 +22,16 @@ const Form = () => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="flex items-center justify-center w-full">
-      <form className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4">
+      <form
+        className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4"
+        onSubmit={handleSubmit}
+      >
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
