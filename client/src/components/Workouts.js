@@ -1,7 +1,7 @@
 import React from "react";
 
 const Workouts = () => {
-  return <div>Workouts</div>;
+  return <div className="flex-1">Workouts</div>;
 };
 
 export default Workouts;
