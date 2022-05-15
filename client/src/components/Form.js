@@ -22,17 +22,18 @@ const Form = () => {
     });
   };
 
-  console.log(formValues);
-
   return (
     <div className="w-full max-w-xs flex justify-center items-center">
       <form class="bg-white shadow-xl rounded px-8 pt-6 pb-8 mb-4">
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            for="title"
+          >
             Title
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="h-12 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"
             id="title"
             type="text"
             name="title"
@@ -43,51 +44,55 @@ const Form = () => {
         </div>
         <div>
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 text-sm font-bold mb-2"
             for="description"
           >
             Description
           </label>
           <textarea
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"
             id="description"
             name="description"
-            minrows="4"
+            rows="4"
             type="text"
             value={description}
             onChange={handleChange}
             placeholder="Description"
           />
         </div>
-        <div>
+        <div className="mb-2">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 text-sm font-bold mb-2"
             for="workoutType"
           >
             Workout Type
           </label>
 
           <select
-            class="form-select shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            className={`h-12 shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none ${
+              workoutType ? "text-gray-700" : "text-gray-400"
+            }`}
             name="workoutType"
             id="workoutType"
             value={workoutType}
             onChange={handleChange}
           >
-            <option value="push" defaultChecked>
-              Push
-            </option>
+            <option value="">Select Workout Type</option>
+            <option value="push">Push</option>
             <option value="pull">Pull</option>
             <option value="legs">Legs</option>
             <option value="hybrid">Hybrid</option>
           </select>
         </div>
         <div class="mb-2">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="tags">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            for="tags"
+          >
             Tags
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="h-12 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="tags"
             name="tags"
             type="text"
@@ -102,7 +107,10 @@ const Form = () => {
           />
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="tags">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            for="tags"
+          >
             Image
           </label>
           <FileBase
@@ -113,9 +121,9 @@ const Form = () => {
             }
           />
         </div>
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-start">
           <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Create Workout
