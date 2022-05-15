@@ -7,7 +7,7 @@ const Home = () => {
       <div className="col-span-12 md:col-span-6 xl:col-span-4 border border-black ml-2">
         <Form />
       </div>
-      <div className="col-span-12 md:col-span-6 xl:col-span-8 px-2 border border-black mr-6">
+      <div className="col-span-12 md:col-span-6 xl:col-span-8 px-2 border border-black mr-2">
         <Workouts />
       </div>
     </main>
