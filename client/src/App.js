@@ -1,9 +1,24 @@
-function App() {
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchAsyncWorkouts } from "./redux/features/workoutsSlice";
+import { Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import { Navbar } from "./components";
+
+const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAsyncWorkouts());
+  }, [dispatch]);
   return (
-    <div>
-      <h1>Test</h1>
+    <div className="min-h-screen mx-auto flex flex-col overflow-hidden">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
