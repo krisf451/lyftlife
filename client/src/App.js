@@ -6,7 +6,7 @@ import { Navbar } from "./components";
 
 const App = () => {
   return (
-    <div className="min-h-screen max-w-6xl mx-auto flex flex-col justify-center items-center">
+    <div className="min-h-screen max-w-7xl mx-auto flex flex-col overflow-hidden">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
