@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import FileBase from "react-file-base64";
+import { postAsyncWorkout } from "../redux/features/workoutsSlice";
+import { useDispatch } from "react-redux";
 
 const initialFormValues = {
   title: "",
+  creator: "",
   description: "",
   workoutType: "",
   tags: "",
@@ -11,7 +14,8 @@ const initialFormValues = {
 
 const Form = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
-  const { title, description, workoutType, tags } = formValues;
+  const { title, description, workoutType, tags, creator } = formValues;
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -24,6 +28,11 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(postAsyncWorkout(formValues));
+  };
+
+  const clear = () => {
+    setFormValues(initialFormValues);
   };
 
   return (
@@ -32,7 +41,24 @@ const Form = () => {
         className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4"
         onSubmit={handleSubmit}
       >
-        <div className="mb-4">
+        <div>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="creator"
+          >
+            Creator
+          </label>
+          <input
+            className="h-12 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"
+            id="creator"
+            type="text"
+            name="creator"
+            value={creator}
+            onChange={handleChange}
+            placeholder="Creator"
+          />
+        </div>
+        <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="title"
@@ -133,7 +159,14 @@ const Form = () => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            Create Workout
+            Submit
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 ml-6 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={clear}
+          >
+            Clear
           </button>
         </div>
       </form>
