@@ -14,7 +14,8 @@ const initialFormValues = {
 
 const Form = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
-  const { title, description, workoutType, tags, creator } = formValues;
+  const { title, description, workoutType, tags, creator, selectedFile } =
+    formValues;
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -29,6 +30,10 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postAsyncWorkout(formValues));
+  };
+
+  const clear = (e) => {
+    setFormValues(initialFormValues);
   };
 
   return (
@@ -155,7 +160,14 @@ const Form = () => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            Create Workout
+            Submit
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 ml-6 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={clear}
+          >
+            Clear
           </button>
         </div>
       </form>
