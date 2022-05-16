@@ -1,4 +1,7 @@
 import React from "react";
+import { FiThumbsUp } from "react-icons/fi";
+import { AiFillDelete } from "react-icons/ai";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 const Workout = ({ workout }) => {
   return (

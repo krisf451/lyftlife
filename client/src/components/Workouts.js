@@ -3,11 +3,15 @@ import { useSelector } from "react-redux";
 import { getAllWorkouts } from "../redux/features/workoutsSlice";
 
 import Workout from "./Workout";
+import Loading from "./Loading";
 
 const Workouts = () => {
   const workouts = useSelector(getAllWorkouts);
+  const { loading } = useSelector((state) => state.workouts);
+
+  if (loading) return <Loading />;
   return (
-    <div>
+    <div className="flex flex-wrap gap-4 justify-center xl:justify-start">
       {workouts?.map((workout) => (
         <Workout workout={workout} key={workout._id} />
       ))}
