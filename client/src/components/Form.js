@@ -14,8 +14,7 @@ const initialFormValues = {
 
 const Form = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
-  const { title, description, workoutType, tags, creator, selectedFile } =
-    formValues;
+  const { title, description, workoutType, tags, creator } = formValues;
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -32,7 +31,7 @@ const Form = () => {
     dispatch(postAsyncWorkout(formValues));
   };
 
-  const clear = (e) => {
+  const clear = () => {
     setFormValues(initialFormValues);
   };
 
@@ -47,7 +46,7 @@ const Form = () => {
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="creator"
           >
-            Title
+            Creator
           </label>
           <input
             className="h-12 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"

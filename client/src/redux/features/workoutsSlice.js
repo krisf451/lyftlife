@@ -28,7 +28,7 @@ export const postAsyncWorkout = createAsyncThunk(
   "workouts/postAsyncWorkout",
   async (newWorkout) => {
     const res = await WORKOUTS_API.post(`/workouts`, newWorkout);
-    console.log(res);
+    return res.data;
   }
 );
 
