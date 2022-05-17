@@ -12,6 +12,19 @@ const initialFormValues = {
   selectedFile: "",
 };
 
+//TODO: Mess with this instead of FileBase
+
+//  const addImageToPost = (e) => {
+//    const reader = new FileReader();
+//    if (e.target.files[0]) {
+//      reader.readAsDataURL(e.target.files[0]);
+//    }
+
+//    reader.onload = (readerEvent) => {
+//      setSelectedFile(readerEvent.target.result);
+//    };
+//  };
+
 const Form = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const { title, description, workoutType, tags, creator } = formValues;
