@@ -41,6 +41,7 @@ const Form = () => {
         className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4"
         onSubmit={handleSubmit}
       >
+        <h2 className="font-extrabold text-3xl mb-4 mt-2">Create A Workout</h2>
         <div>
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
