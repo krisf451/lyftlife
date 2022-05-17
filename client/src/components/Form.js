@@ -20,7 +20,8 @@ const Form = ({ currentId, setCurrentId }) => {
   const workout = useSelector((state) =>
     currentId ? state.workouts.workouts.find((w) => w._id === currentId) : null
   );
-  const { title, description, workoutType, tags, creator } = formValues;
+  const { title, description, workoutType, tags, creator, selectedFile } =
+    formValues;
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -54,7 +55,7 @@ const Form = ({ currentId, setCurrentId }) => {
   return (
     <div className="flex items-center justify-center w-full">
       <form
-        className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4"
+        className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4 w-96"
         onSubmit={handleSubmit}
       >
         <h2 className="font-extrabold text-3xl mb-4 mt-2">
@@ -165,6 +166,15 @@ const Form = ({ currentId, setCurrentId }) => {
           >
             Image
           </label>
+          <input
+            className="h-12 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"
+            type="text"
+            name="selectedFile"
+            id="selectedFile"
+            value={selectedFile}
+            onChange={handleChange}
+            placeholder="IMG address"
+          />
           {/* <input
             id="selectedFile"
             name="selectedFile"
@@ -179,13 +189,13 @@ const Form = ({ currentId, setCurrentId }) => {
               });
             }}
           /> */}
-          <FileBase
+          {/* <FileBase
             type="file"
             multiple={false}
             onDone={({ base64 }) =>
               setFormValues({ ...formValues, selectedFile: base64 })
             }
-          />
+          /> */}
         </div>
         <div className="flex items-center justify-start">
           <button
