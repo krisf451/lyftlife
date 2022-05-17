@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { fetchAsyncWorkouts } from "./redux/features/workoutsSlice";
 import { Routes, Route } from "react-router-dom";
 
-import { Navbar, Home } from "./components";
+import { Navbar, Home, Auth } from "./components";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,8 @@ const App = () => {
       <Toaster />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/*" element={<Home />} />
       </Routes>
     </div>
   );
