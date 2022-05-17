@@ -49,19 +49,22 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
     if (currentId) {
       dispatch(updateAsyncWorkout(currentId, formValues));
+    } else {
+      dispatch(postAsyncWorkout(formValues));
     }
-    dispatch(postAsyncWorkout(formValues));
+    clear();
   };
 
   const clear = () => {
     setFormValues(initialFormValues);
+    setCurrentId(null);
   };
 
   useEffect(() => {
     if (workout) {
       setFormValues(workout);
     }
-  }, []);
+  }, [workout]);
 
   return (
     <div className="flex items-center justify-center w-full">
@@ -69,7 +72,9 @@ const Form = ({ currentId, setCurrentId }) => {
         className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4"
         onSubmit={handleSubmit}
       >
-        <h2 className="font-extrabold text-3xl mb-4 mt-2">Create A Workout</h2>
+        <h2 className="font-extrabold text-3xl mb-4 mt-2">
+          {currentId ? "Editing" : "Creating"} a Workout
+        </h2>
         <div>
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
