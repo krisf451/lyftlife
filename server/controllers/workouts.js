@@ -45,7 +45,6 @@ const createWorkout = async (req, res) => {
 const updateWorkout = async (req, res) => {
   const { id: _id } = req.params;
   const workout = req.body;
-  console.log(req.body, "REQBODY");
   try {
     if (!mongoose.Types.ObjectId.isValid(_id))
       return res.json({ message: `No workout with ID ${_id} found` });

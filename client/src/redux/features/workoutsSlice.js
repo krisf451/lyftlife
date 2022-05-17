@@ -36,10 +36,7 @@ export const postAsyncWorkout = createAsyncThunk(
 export const updateAsyncWorkout = createAsyncThunk(
   "workouts/updateAsyncWorkout",
   async (workout) => {
-    //TODO: ISSUE IS HAPPENING HERE
-    // console.log(id, "ID IN REDUX STUFF", workout);
     const res = await WORKOUTS_API.put(`/workouts/${workout._id}`, workout);
-    console.log(res);
     return res.data;
   }
 );
@@ -78,16 +75,23 @@ const workoutsSlice = createSlice({
     },
     [postAsyncWorkout.fulfilled]: (state, action) => {
       console.log("posted new workout succesfully!!");
+      toast.success("POSTED SUCCESSFULLY!!");
       return {
         ...state,
         workouts: [...state.workouts, action.payload],
         loading: false,
       };
     },
+    [updateAsyncWorkout.pending]: (state) => {
+      console.log("updating workout pending");
+      return { ...state, loading: true };
+    },
     [updateAsyncWorkout.fulfilled]: (state, action) => {
       console.log("updated workout succesfully!!");
+      toast.success("UPDATED SUCCESSFULLY!!");
       return {
         ...state,
+        loading: false,
         workouts: state?.workouts?.map((workout) =>
           workout?._id === action?.payload?._id ? action.payload : workout
         ),

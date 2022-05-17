@@ -161,10 +161,24 @@ const Form = ({ currentId, setCurrentId }) => {
         <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="tags"
+            htmlFor="selectedFile"
           >
             Image
           </label>
+          {/* <input
+            id="selectedFile"
+            name="selectedFile"
+            accept=".jpg, .png, .jpeg"
+            type="file"
+            value=""
+            onChange={(e) => {
+              console.log(e.target.files[0]);
+              setFormValues({
+                ...formValues,
+                selectedFile: e.target.files[0],
+              });
+            }}
+          /> */}
           <FileBase
             type="file"
             multiple={false}
