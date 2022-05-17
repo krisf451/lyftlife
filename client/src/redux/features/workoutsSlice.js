@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { WORKOUTS_API } from "../../api/index";
+import toast from "react-hot-toast";
 
 const initialState = {
   workouts: [],
@@ -45,7 +46,8 @@ export const deleteAsyncWorkout = createAsyncThunk(
   "workouts/deleteAsyncWorkout",
   async (id) => {
     const res = await WORKOUTS_API.delete(`/workouts/${id}`);
-    console.log(res);
+    console.log(res.data._id);
+    return res.data._id;
   }
 );
 
@@ -97,6 +99,7 @@ const workoutsSlice = createSlice({
     },
     [deleteAsyncWorkout.fulfilled]: (state, action) => {
       console.log("deleted workout succesfully!!");
+      toast.success("DELETED SUCESSFULLY");
       return {
         ...state,
         workouts: state.workouts.filter(

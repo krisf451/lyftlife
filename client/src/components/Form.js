@@ -35,13 +35,11 @@ const Form = ({ currentId, setCurrentId }) => {
   );
   const { title, description, workoutType, tags, creator } = formValues;
   const dispatch = useDispatch();
-  console.log(formValues, "TEST");
-  const handleChange = (e) => {
-    const { name, value } = e.target;
 
+  const handleChange = (e) => {
     setFormValues({
       ...formValues,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 
