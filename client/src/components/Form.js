@@ -15,19 +15,6 @@ const initialFormValues = {
   selectedFile: "",
 };
 
-//TODO: Mess with this instead of FileBase
-
-//  const addImageToPost = (e) => {
-//    const reader = new FileReader();
-//    if (e.target.files[0]) {
-//      reader.readAsDataURL(e.target.files[0]);
-//    }
-
-//    reader.onload = (readerEvent) => {
-//      setSelectedFile(readerEvent.target.result);
-//    };
-//  };
-
 const Form = ({ currentId, setCurrentId }) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const workout = useSelector((state) =>
@@ -46,7 +33,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentId) {
-      dispatch(updateAsyncWorkout(currentId, formValues));
+      dispatch(updateAsyncWorkout(formValues, currentId));
     } else {
       dispatch(postAsyncWorkout(formValues));
     }
@@ -60,14 +47,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   useEffect(() => {
     if (workout) {
-      setFormValues({
-        title: workout.title,
-        creator: workout.creator,
-        description: workout.description,
-        workoutType: workout.workoutType,
-        tags: workout.tags,
-        selectedFile: workout.selectedFile,
-      });
+      setFormValues(workout);
     }
   }, [workout]);
 

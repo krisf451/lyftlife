@@ -45,14 +45,18 @@ const createWorkout = async (req, res) => {
 const updateWorkout = async (req, res) => {
   const { id: _id } = req.params;
   const workout = req.body;
-
+  console.log(req.body, "REQBODY");
   try {
     if (!mongoose.Types.ObjectId.isValid(_id))
       return res.json({ message: `No workout with ID ${_id} found` });
-    const updatedWorkout = await Workouts.findByIdAndUpdate(_id, workout, {
-      new: true,
-    });
-    console.log(updatedWorkout);
+
+    const updatedWorkout = await Workouts.findByIdAndUpdate(
+      _id,
+      { ...workout, _id },
+      {
+        new: true,
+      }
+    );
     res.json(updatedWorkout);
   } catch (error) {
     res.status(400).json({ message: error.message });

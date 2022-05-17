@@ -12,7 +12,7 @@ const {
 router.get("/", getWorkouts);
 router.get("/:id", getWorkoutById);
 router.post("/", createWorkout);
-router.patch("/:id", updateWorkout);
+router.put("/:id", updateWorkout);
 router.patch("/:id/likeWorkout", likeWorkout);
 router.delete("/:id", deleteWorkout);
 

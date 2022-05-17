@@ -35,8 +35,10 @@ export const postAsyncWorkout = createAsyncThunk(
 
 export const updateAsyncWorkout = createAsyncThunk(
   "workouts/updateAsyncWorkout",
-  async (id, updatedWorkout) => {
-    const res = await WORKOUTS_API.patch(`/workouts/${id}`, updatedWorkout);
+  async (workout) => {
+    //TODO: ISSUE IS HAPPENING HERE
+    // console.log(id, "ID IN REDUX STUFF", workout);
+    const res = await WORKOUTS_API.put(`/workouts/${workout._id}`, workout);
     console.log(res);
     return res.data;
   }
@@ -46,7 +48,6 @@ export const deleteAsyncWorkout = createAsyncThunk(
   "workouts/deleteAsyncWorkout",
   async (id) => {
     const res = await WORKOUTS_API.delete(`/workouts/${id}`);
-    console.log(res.data._id);
     return res.data._id;
   }
 );
@@ -83,17 +84,12 @@ const workoutsSlice = createSlice({
         loading: false,
       };
     },
-    [updateAsyncWorkout.pending]: (state) => {
-      console.log("updating new workout pending");
-      return { ...state, loading: true };
-    },
     [updateAsyncWorkout.fulfilled]: (state, action) => {
       console.log("updated workout succesfully!!");
       return {
         ...state,
-        loading: false,
-        workouts: state.workouts.map((workout) =>
-          workout._id === action.payload._id ? action.payload : workout
+        workouts: state?.workouts?.map((workout) =>
+          workout?._id === action?.payload?._id ? action.payload : workout
         ),
       };
     },
@@ -102,7 +98,7 @@ const workoutsSlice = createSlice({
       toast.success("DELETED SUCESSFULLY");
       return {
         ...state,
-        workouts: state.workouts.filter(
+        workouts: state?.workouts?.filter(
           (workout) => workout._id !== action.payload
         ),
       };
