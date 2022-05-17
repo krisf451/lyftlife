@@ -2,7 +2,7 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
-      animation: { slideup: "slideup 3s ease-in-out" },
+      animation: { slideup: "slideup 1s ease-in-out" },
       keyframes: {
         slideup: {
           from: { opacity: 0, transform: "translateY(100%)" },
