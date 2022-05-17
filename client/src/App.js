@@ -4,8 +4,7 @@ import { useDispatch } from "react-redux";
 import { fetchAsyncWorkouts } from "./redux/features/workoutsSlice";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import { Navbar } from "./components";
+import { Navbar, Home } from "./components";
 
 const App = () => {
   const dispatch = useDispatch();

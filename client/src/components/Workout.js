@@ -6,6 +6,8 @@ import moment from "moment";
 import { deleteAsyncWorkout } from "../redux/features/workoutsSlice";
 import { useDispatch } from "react-redux";
 
+import defaultWorkout from "../images/workout_default.jpg";
+
 const Workout = ({ workout, setCurrentId }) => {
   const dispatch = useDispatch();
   return (
@@ -33,7 +35,7 @@ const Workout = ({ workout, setCurrentId }) => {
             </p>
           </div>
           <img
-            src={workout.selectedFile}
+            src={workout.selectedFile || defaultWorkout}
             alt="workout"
             className="opacity-80 w-full object-cover h-56 transition-all duration-1000 linear hover:scale-125 hover:opacity-100"
           />
