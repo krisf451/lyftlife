@@ -7,6 +7,7 @@ import moment from "moment";
 const Workout = ({ workout }) => {
   return (
     <div className="max-h-96 flex flex-col justify-center items-start border border-x-2 rounded-xl p-4 cursor-pointer overflow-hidden shadow-xl">
+      {/* Workout Figure + Figcaption (Experimental) */}
       <figure className="relative">
         <div className="flex items-center justify-between w-full">
           <div>
@@ -38,8 +39,12 @@ const Workout = ({ workout }) => {
         </figcaption>
       </figure>
 
-      <p className="my-4 justify-self-start">{workout.description}</p>
+      {/* Workout Description */}
+      <div>
+        <p className="my-4">{workout.description}</p>
+      </div>
 
+      {/* Workout Like and Delete Buttons */}
       <div className="flex justify-between w-full">
         <div className="flex items-center">
           <FiThumbsUp size={25} className="cursor-pointer mr-2" />
