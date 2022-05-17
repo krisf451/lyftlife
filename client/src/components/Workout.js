@@ -4,7 +4,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import moment from "moment";
 
-const Workout = ({ workout }) => {
+const Workout = ({ workout, setCurrentId }) => {
   return (
     <div className="h-96 w-96 flex flex-col justify-center items-start border border-x-2 rounded-xl p-4 cursor-pointer overflow-hidden shadow-xl">
       {/* Workout Figure + Figcaption (Experimental) */}
@@ -19,6 +19,7 @@ const Workout = ({ workout }) => {
           <BiDotsHorizontalRounded
             size={25}
             className="mb-4 transition-transform linear animate-slideup duration-500 hover:scale-125"
+            onClick={() => setCurrentId(workout._id)}
           />
         </div>
 

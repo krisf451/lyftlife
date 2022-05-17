@@ -34,9 +34,10 @@ export const postAsyncWorkout = createAsyncThunk(
 
 export const updateAsyncWorkout = createAsyncThunk(
   "workouts/updateAsyncWorkout",
-  async (updatedWorkout, id) => {
+  async (id, updatedWorkout) => {
     const res = await WORKOUTS_API.patch(`/workouts/${id}`, updatedWorkout);
     console.log(res);
+    return res.data;
   }
 );
 

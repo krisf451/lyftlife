@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FileBase from "react-file-base64";
-import { postAsyncWorkout } from "../redux/features/workoutsSlice";
-import { useDispatch } from "react-redux";
+import {
+  postAsyncWorkout,
+  updateAsyncWorkout,
+} from "../redux/features/workoutsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const initialFormValues = {
   title: "",
@@ -25,8 +28,11 @@ const initialFormValues = {
 //    };
 //  };
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const [formValues, setFormValues] = useState(initialFormValues);
+  const workout = useSelector((state) =>
+    currentId ? state.workouts.workouts.find((w) => w._id === currentId) : null
+  );
   const { title, description, workoutType, tags, creator } = formValues;
   const dispatch = useDispatch();
 
@@ -41,12 +47,21 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (currentId) {
+      dispatch(updateAsyncWorkout(currentId, formValues));
+    }
     dispatch(postAsyncWorkout(formValues));
   };
 
   const clear = () => {
     setFormValues(initialFormValues);
   };
+
+  useEffect(() => {
+    if (workout) {
+      setFormValues(workout);
+    }
+  }, []);
 
   return (
     <div className="flex items-center justify-center w-full">
