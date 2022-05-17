@@ -68,9 +68,21 @@ const workoutsSlice = createSlice({
       console.log("fetched workout BY ID succesfully!");
       return { ...state, workout: action.payload };
     },
+    [postAsyncWorkout.pending]: (state) => {
+      console.log("posting new workout pending");
+      return { ...state, loading: true };
+    },
     [postAsyncWorkout.fulfilled]: (state, action) => {
       console.log("posted new workout succesfully!!");
-      return { ...state, workouts: [...state.workouts, action.payload] };
+      return {
+        ...state,
+        workouts: [...state.workouts, action.payload],
+        loading: false,
+      };
+    },
+    [updateAsyncWorkout.pending]: (state) => {
+      console.log("updating new workout pending");
+      return { ...state, loading: true };
     },
     [updateAsyncWorkout.fulfilled]: (state, action) => {
       console.log("updated workout succesfully!!");
@@ -79,6 +91,7 @@ const workoutsSlice = createSlice({
         workouts: state.workouts.map((workout) =>
           workout._id === action.payload._id ? action.payload : workout
         ),
+        loading: false,
       };
     },
     [deleteAsyncWorkout.fulfilled]: (state, action) => {

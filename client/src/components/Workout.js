@@ -6,9 +6,9 @@ import moment from "moment";
 
 const Workout = ({ workout }) => {
   return (
-    <div className="max-h-96 flex flex-col justify-center items-start border border-x-2 rounded-xl p-4 cursor-pointer overflow-hidden shadow-xl">
+    <div className="h-96 w-96 flex flex-col justify-center items-start border border-x-2 rounded-xl p-4 cursor-pointer overflow-hidden shadow-xl">
       {/* Workout Figure + Figcaption (Experimental) */}
-      <figure className="relative">
+      <figure className="relative w-full">
         <div className="flex items-center justify-between w-full">
           <div>
             <h1>{workout.title}</h1>
@@ -23,7 +23,7 @@ const Workout = ({ workout }) => {
         </div>
 
         <div className="group flex flex-col overflow-hidden relative rounded-lg">
-          <div className="absolute top-0 left-0 p-2 z-10">
+          <div className="absolute bottom-0 left-0 p-2 z-10">
             <p className="opacity-0 text-gray-700 group-hover:opacity-100 transition-all duration-1000">
               {workout.tags.map((tag) => `#${tag}`)}
             </p>
@@ -34,13 +34,13 @@ const Workout = ({ workout }) => {
             className="opacity-80 w-full object-cover h-56 transition-all duration-1000 linear hover:scale-125 hover:opacity-100"
           />
         </div>
-        <figcaption className="absolute bottom-0 left-0 bg-white w-full opacity-80 flex justify-center py-2">
+        <figcaption className="absolute bottom-0 left-0 bg-white w-full opacity-80 flex justify-end p-2">
           {workout.workoutType}
         </figcaption>
       </figure>
 
       {/* Workout Description */}
-      <div>
+      <div className="h-24 overflow-hidden mb-4">
         <p className="my-4">{workout.description}</p>
       </div>
 
