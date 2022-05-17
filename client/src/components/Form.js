@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FileBase from "react-file-base64";
-import { postAsyncWorkout } from "../redux/features/workoutsSlice";
-import { useDispatch } from "react-redux";
+import {
+  postAsyncWorkout,
+  updateAsyncWorkout,
+} from "../redux/features/workoutsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const initialFormValues = {
   title: "",
@@ -12,49 +15,52 @@ const initialFormValues = {
   selectedFile: "",
 };
 
-//TODO: Mess with this instead of FileBase
-
-//  const addImageToPost = (e) => {
-//    const reader = new FileReader();
-//    if (e.target.files[0]) {
-//      reader.readAsDataURL(e.target.files[0]);
-//    }
-
-//    reader.onload = (readerEvent) => {
-//      setSelectedFile(readerEvent.target.result);
-//    };
-//  };
-
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const [formValues, setFormValues] = useState(initialFormValues);
-  const { title, description, workoutType, tags, creator } = formValues;
+  const workout = useSelector((state) =>
+    currentId ? state.workouts.workouts.find((w) => w._id === currentId) : null
+  );
+  const { title, description, workoutType, tags, creator, selectedFile } =
+    formValues;
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    const { name, value, checked, type } = e.target;
-    const valueToUse = type === "checkbox" ? checked : value;
     setFormValues({
       ...formValues,
-      [name]: valueToUse,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postAsyncWorkout(formValues));
+    if (currentId) {
+      dispatch(updateAsyncWorkout(formValues, currentId));
+    } else {
+      dispatch(postAsyncWorkout(formValues));
+    }
+    clear();
   };
 
   const clear = () => {
     setFormValues(initialFormValues);
+    setCurrentId(null);
   };
+
+  useEffect(() => {
+    if (workout) {
+      setFormValues(workout);
+    }
+  }, [workout]);
 
   return (
     <div className="flex items-center justify-center w-full">
       <form
-        className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4"
+        className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4 w-96"
         onSubmit={handleSubmit}
       >
-        <h2 className="font-extrabold text-3xl mb-4 mt-2">Create A Workout</h2>
+        <h2 className="font-extrabold text-3xl mb-4 mt-2">
+          {currentId ? "Editing" : "Creating"} a Workout
+        </h2>
         <div>
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -156,17 +162,40 @@ const Form = () => {
         <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="tags"
+            htmlFor="selectedFile"
           >
             Image
           </label>
-          <FileBase
+          <input
+            className="h-12 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"
+            type="text"
+            name="selectedFile"
+            id="selectedFile"
+            value={selectedFile}
+            onChange={handleChange}
+            placeholder="IMG address"
+          />
+          {/* <input
+            id="selectedFile"
+            name="selectedFile"
+            accept=".jpg, .png, .jpeg"
+            type="file"
+            value=""
+            onChange={(e) => {
+              console.log(e.target.files[0]);
+              setFormValues({
+                ...formValues,
+                selectedFile: e.target.files[0],
+              });
+            }}
+          /> */}
+          {/* <FileBase
             type="file"
             multiple={false}
             onDone={({ base64 }) =>
               setFormValues({ ...formValues, selectedFile: base64 })
             }
-          />
+          /> */}
         </div>
         <div className="flex items-center justify-start">
           <button

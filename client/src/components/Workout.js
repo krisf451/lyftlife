@@ -3,8 +3,11 @@ import { FiThumbsUp } from "react-icons/fi";
 import { AiFillDelete } from "react-icons/ai";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import moment from "moment";
+import { deleteAsyncWorkout } from "../redux/features/workoutsSlice";
+import { useDispatch } from "react-redux";
 
-const Workout = ({ workout }) => {
+const Workout = ({ workout, setCurrentId }) => {
+  const dispatch = useDispatch();
   return (
     <div className="h-96 w-96 flex flex-col justify-center items-start border border-x-2 rounded-xl p-4 cursor-pointer overflow-hidden shadow-xl">
       {/* Workout Figure + Figcaption (Experimental) */}
@@ -19,6 +22,7 @@ const Workout = ({ workout }) => {
           <BiDotsHorizontalRounded
             size={25}
             className="mb-4 transition-transform linear animate-slideup duration-500 hover:scale-125"
+            onClick={() => setCurrentId(workout._id)}
           />
         </div>
 
@@ -45,14 +49,17 @@ const Workout = ({ workout }) => {
       </div>
 
       {/* Workout Like and Delete Buttons */}
-      {/* TEST CHANGE */}
       <div className="flex justify-between w-full">
         <div className="flex items-center">
           <FiThumbsUp size={25} className="cursor-pointer mr-2" />
           {workout.likeCount}
         </div>
 
-        <AiFillDelete size={25} className="cursor-pointer" />
+        <AiFillDelete
+          size={25}
+          className="cursor-pointer"
+          onClick={() => dispatch(deleteAsyncWorkout(workout._id))}
+        />
       </div>
     </div>
   );

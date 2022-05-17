@@ -7,12 +7,15 @@ const Navbar = () => {
   return (
     <div className="w-full h-20 shadow-md flex items-center justify-between rounded-lg  mb-3">
       {/* logo */}
-      <Link to="/">
+      <Link to="/" className="flex items-center">
         <img
           src={logo}
           alt="logo"
-          className="h-12 w-12 bg-white ml-4 transition-transform duration-500 transform hover:scale-125 ease-in-out"
+          className="h-12 w-12 bg-white ml-4 transition-transform duration-500 transform hover:scale-125 ease-in-out mr-4"
         />
+        <p className="text-2xl transition-transform duration-1000 transform hover:translate-x-5 ease-linear">
+          LYFTLIFE
+        </p>
       </Link>
 
       {/* links */}

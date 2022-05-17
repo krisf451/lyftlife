@@ -5,7 +5,7 @@ import { getAllWorkouts } from "../redux/features/workoutsSlice";
 import Workout from "./Workout";
 import Loading from "./Loading";
 
-const Workouts = () => {
+const Workouts = ({ setCurrentId }) => {
   const workouts = useSelector(getAllWorkouts);
   const { loading } = useSelector((state) => state.workouts);
 
@@ -13,7 +13,11 @@ const Workouts = () => {
   return (
     <div className="flex flex-wrap gap-4 justify-center xl:justify-start">
       {workouts?.map((workout) => (
-        <Workout workout={workout} key={workout._id} />
+        <Workout
+          workout={workout}
+          key={workout._id}
+          setCurrentId={setCurrentId}
+        />
       ))}
     </div>
   );

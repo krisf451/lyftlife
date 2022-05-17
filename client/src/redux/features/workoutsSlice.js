@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { WORKOUTS_API } from "../../api/index";
+import toast from "react-hot-toast";
 
 const initialState = {
   workouts: [],
@@ -34,9 +35,9 @@ export const postAsyncWorkout = createAsyncThunk(
 
 export const updateAsyncWorkout = createAsyncThunk(
   "workouts/updateAsyncWorkout",
-  async (updatedWorkout, id) => {
-    const res = await WORKOUTS_API.patch(`/workouts/${id}`, updatedWorkout);
-    console.log(res);
+  async (workout) => {
+    const res = await WORKOUTS_API.put(`/workouts/${workout._id}`, workout);
+    return res.data;
   }
 );
 
@@ -44,7 +45,7 @@ export const deleteAsyncWorkout = createAsyncThunk(
   "workouts/deleteAsyncWorkout",
   async (id) => {
     const res = await WORKOUTS_API.delete(`/workouts/${id}`);
-    console.log(res);
+    return res.data._id;
   }
 );
 
@@ -74,6 +75,7 @@ const workoutsSlice = createSlice({
     },
     [postAsyncWorkout.fulfilled]: (state, action) => {
       console.log("posted new workout succesfully!!");
+      toast.success("POSTED SUCCESSFULLY!!");
       return {
         ...state,
         workouts: [...state.workouts, action.payload],
@@ -81,24 +83,26 @@ const workoutsSlice = createSlice({
       };
     },
     [updateAsyncWorkout.pending]: (state) => {
-      console.log("updating new workout pending");
+      console.log("updating workout pending");
       return { ...state, loading: true };
     },
     [updateAsyncWorkout.fulfilled]: (state, action) => {
       console.log("updated workout succesfully!!");
+      toast.success("UPDATED SUCCESSFULLY!!");
       return {
         ...state,
-        workouts: state.workouts.map((workout) =>
-          workout._id === action.payload._id ? action.payload : workout
-        ),
         loading: false,
+        workouts: state?.workouts?.map((workout) =>
+          workout?._id === action?.payload?._id ? action.payload : workout
+        ),
       };
     },
     [deleteAsyncWorkout.fulfilled]: (state, action) => {
       console.log("deleted workout succesfully!!");
+      toast.success("DELETED SUCESSFULLY");
       return {
         ...state,
-        workouts: state.workouts.filter(
+        workouts: state?.workouts?.filter(
           (workout) => workout._id !== action.payload
         ),
       };
