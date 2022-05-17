@@ -89,10 +89,10 @@ const workoutsSlice = createSlice({
       console.log("updated workout succesfully!!");
       return {
         ...state,
+        loading: false,
         workouts: state.workouts.map((workout) =>
           workout._id === action.payload._id ? action.payload : workout
         ),
-        loading: false,
       };
     },
     [deleteAsyncWorkout.fulfilled]: (state, action) => {

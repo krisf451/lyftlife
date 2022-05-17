@@ -35,13 +35,13 @@ const Form = ({ currentId, setCurrentId }) => {
   );
   const { title, description, workoutType, tags, creator } = formValues;
   const dispatch = useDispatch();
-
+  console.log(formValues, "TEST");
   const handleChange = (e) => {
-    const { name, value, checked, type } = e.target;
-    const valueToUse = type === "checkbox" ? checked : value;
+    const { name, value } = e.target;
+
     setFormValues({
       ...formValues,
-      [name]: valueToUse,
+      [name]: value,
     });
   };
 
@@ -62,7 +62,14 @@ const Form = ({ currentId, setCurrentId }) => {
 
   useEffect(() => {
     if (workout) {
-      setFormValues(workout);
+      setFormValues({
+        title: workout.title,
+        creator: workout.creator,
+        description: workout.description,
+        workoutType: workout.workoutType,
+        tags: workout.tags,
+        selectedFile: workout.selectedFile,
+      });
     }
   }, [workout]);
 
