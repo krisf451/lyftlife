@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
-  const user = true;
+  const user = null;
   return (
     <div className="w-full h-20 shadow-md flex items-center justify-between rounded-lg  mb-3">
       {/* logo */}
