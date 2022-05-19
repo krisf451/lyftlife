@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signin } from "../redux/features/authSlice";
 import { AiFillLock } from "react-icons/ai";
 import { FaGoogle } from "react-icons/fa";
 import AuthInput from "./AuthInput";
@@ -16,6 +19,8 @@ const Auth = () => {
   const [formValues, setFormValues] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,6 +46,15 @@ const Auth = () => {
   };
 
   const googleSuccess = async (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+
+    try {
+      dispatch(signin({ result, token }));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
     console.log(res);
   };
 

@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../images/lift2.jpeg";
 import { Link } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
-  const user = null;
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+
+  useEffect(() => {
+    const token = user?.token;
+
+    //check for JWT here eventually
+
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, []);
+
   return (
     <div className="w-full h-20 shadow-md flex items-center justify-between rounded-lg  mb-3">
       {/* logo */}
@@ -28,9 +37,9 @@ const Navbar = () => {
       {/* User Information */}
       {user ? (
         <div className="flex items-center space-x-4">
-          <h2 className="font-semibold text-xl">John Wick</h2>
+          <h2 className="font-semibold text-xl">{user?.result?.name}</h2>
           <img
-            src="https://images.unsplash.com/photo-1590086782957-93c06ef21604?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+            src={user?.result?.imageUrl}
             alt="test user"
             className="rounded-full h-12 w-12 object-cover"
           />

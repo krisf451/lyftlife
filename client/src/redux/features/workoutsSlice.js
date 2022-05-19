@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { WORKOUTS_API } from "../../api/index";
+import { BASE_URL } from "../../api/index";
 import toast from "react-hot-toast";
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
 export const fetchAsyncWorkouts = createAsyncThunk(
   "workouts/fetchAsyncWorkouts",
   async () => {
-    const res = await WORKOUTS_API.get("/workouts");
+    const res = await BASE_URL.get("/workouts");
     return res.data.workouts;
   }
 );
@@ -20,7 +20,7 @@ export const fetchAsyncWorkouts = createAsyncThunk(
 export const fetchAsyncWorkoutById = createAsyncThunk(
   "workouts/fetchAsyncWorkoutById",
   async (id) => {
-    const res = await WORKOUTS_API.get(`/workouts/${id}`);
+    const res = await BASE_URL.get(`/workouts/${id}`);
     console.log(res);
   }
 );
@@ -28,7 +28,7 @@ export const fetchAsyncWorkoutById = createAsyncThunk(
 export const postAsyncWorkout = createAsyncThunk(
   "workouts/postAsyncWorkout",
   async (newWorkout) => {
-    const res = await WORKOUTS_API.post(`/workouts`, newWorkout);
+    const res = await BASE_URL.post(`/workouts`, newWorkout);
     return res.data;
   }
 );
@@ -36,7 +36,7 @@ export const postAsyncWorkout = createAsyncThunk(
 export const updateAsyncWorkout = createAsyncThunk(
   "workouts/updateAsyncWorkout",
   async (workout) => {
-    const res = await WORKOUTS_API.put(`/workouts/${workout._id}`, workout);
+    const res = await BASE_URL.put(`/workouts/${workout._id}`, workout);
     return res.data;
   }
 );
@@ -44,7 +44,7 @@ export const updateAsyncWorkout = createAsyncThunk(
 export const deleteAsyncWorkout = createAsyncThunk(
   "workouts/deleteAsyncWorkout",
   async (id) => {
-    const res = await WORKOUTS_API.delete(`/workouts/${id}`);
+    const res = await BASE_URL.delete(`/workouts/${id}`);
     return res.data._id;
   }
 );

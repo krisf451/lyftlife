@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export const WORKOUTS_API = axios.create({
+export const BASE_URL = axios.create({
   baseURL: "http://localhost:9000",
 });
