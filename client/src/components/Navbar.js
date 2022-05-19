@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import logo from "../images/lift2.jpeg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 import { logout } from "../redux/features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const { authData } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("profile")));
-  }, [authData]);
+  }, [location]);
 
   return (
     <div className="w-full h-20 shadow-md flex items-center justify-between rounded-lg  mb-3">
