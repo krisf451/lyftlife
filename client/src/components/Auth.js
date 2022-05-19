@@ -5,7 +5,7 @@ import AuthInput from "./AuthInput";
 const Auth = () => {
   const [formValues, setFormValues] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const isSignup = true;
+  const [isSignup, setIsSignup] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,6 +17,7 @@ const Auth = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   const clear = () => {
     setFormValues({
       firstName: "",
@@ -31,11 +32,15 @@ const Auth = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  const switchMode = () => {
+    setIsSignup((prevIsSignup) => !prevIsSignup);
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen w-full">
       <div className="w-[400px] mx-auto bg-gray-300 rounded-lg p-4 shadow-lg">
-        <div className="flex flex-col justify-center items-center bg-red-500 rounded-full p-2">
-          <AiFillLock size={25} className="" />
+        <div className="bg-red-500 flex mx-auto justify-center rounded-full h-12 w-12 items-center transition-transform duration-1000 ease-linear animate-slideup">
+          <AiFillLock size={25} />
         </div>
         <h2 className="text-center">{isSignup ? "Sign Up" : "Sign In"}</h2>
 
@@ -81,23 +86,35 @@ const Auth = () => {
               handleChange={handleChange}
               handleShowPassword={handleShowPassword}
             />
-            <AuthInput
-              type="password"
-              name="confirmPassword"
-              label="Confirm Password"
-              placeholder="abc123"
-              value={formValues.confirmPassword}
-              handleChange={handleChange}
-            />
-            <button type="submit" className="bg-white h-12 w-24 rounded-md">
-              Submit
-            </button>
-            <button
-              type="button"
-              className="bg-gray-400 h-12 w-24 rounded-md ml-20"
-              onClick={clear}
-            >
-              Clear
+            {isSignup && (
+              <AuthInput
+                type="password"
+                name="confirmPassword"
+                label="Confirm Password"
+                placeholder="abc123"
+                value={formValues.confirmPassword}
+                handleChange={handleChange}
+              />
+            )}
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-400 text-white h-12 w-full rounded-md transition-all hover:bg-blue-500 duration-300 ease-in-out mb-2"
+          >
+            {isSignup ? "Sign Up" : "Sign In"}
+          </button>
+          <button
+            type="button"
+            className="bg-blue-400 text-white h-12 w-full rounded-md transition-all hover:bg-blue-500 hover:text-white duration-300 ease-in-out mb-4"
+            onClick={clear}
+          >
+            Clear
+          </button>
+          <div className="flex justify-end items-center w-full">
+            <button onClick={switchMode} type="button">
+              {isSignup
+                ? "Already have an account? Sign In"
+                : "Don't have an account? Sign Up"}
             </button>
           </div>
         </form>
