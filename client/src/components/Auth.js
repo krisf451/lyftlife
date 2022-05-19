@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import { AiFillLock } from "react-icons/ai";
+import { FaGoogle } from "react-icons/fa";
 import AuthInput from "./AuthInput";
+import { GoogleLogin } from "react-google-login";
+
+const initialFormValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const Auth = () => {
   const [formValues, setFormValues] = useState({});
@@ -19,13 +29,7 @@ const Auth = () => {
   };
 
   const clear = () => {
-    setFormValues({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
+    setFormValues(initialFormValues);
   };
 
   const handleShowPassword = () => {
@@ -34,6 +38,14 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
+  };
+
+  const googleSuccess = async (res) => {
+    console.log(res);
+  };
+
+  const googleFailure = async (error) => {
+    console.log("Google Sign In Was unsuccessful", error);
   };
 
   return (
@@ -97,6 +109,7 @@ const Auth = () => {
               />
             )}
           </div>
+
           <button
             type="submit"
             className="bg-blue-400 text-white h-12 w-full rounded-md transition-all hover:bg-blue-500 duration-300 ease-in-out mb-2"
@@ -105,12 +118,34 @@ const Auth = () => {
           </button>
           <button
             type="button"
-            className="bg-blue-400 text-white h-12 w-full rounded-md transition-all hover:bg-blue-500 hover:text-white duration-300 ease-in-out mb-4"
+            className="bg-blue-400 text-white h-12 w-full rounded-md transition-all hover:bg-blue-500 hover:text-white duration-300 ease-in-out mb-2"
             onClick={clear}
           >
             Clear
           </button>
-          <div className="flex justify-end items-center w-full">
+          <GoogleLogin
+            clientId={
+              "712064212034-fg459nvfadj3h4etlqi0qef6pq8472kv.apps.googleusercontent.com"
+            }
+            render={(renderProps) => (
+              <button
+                type="button"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                className="relative bg-blue-400 text-white h-12 w-full rounded-md transition-all hover:bg-blue-500 duration-300 ease-in-out mb-2 cursor-pointer"
+              >
+                <FaGoogle
+                  className="absolute left-[100px] bottom-[15px]"
+                  size={20}
+                />
+                Google Sign In
+              </button>
+            )}
+            onSuccess={googleSuccess}
+            onFailure={googleFailure}
+            cookiePolicy={"single_host_origin"}
+          />
+          <div className="flex justify-end items-center w-full mt-2">
             <button onClick={switchMode} type="button">
               {isSignup
                 ? "Already have an account? Sign In"
