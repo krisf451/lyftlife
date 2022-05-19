@@ -64,7 +64,7 @@ const Auth = () => {
   return (
     <div className="flex justify-center items-center min-h-screen w-full">
       <div className="w-[400px] mx-auto bg-gray-300 rounded-lg p-4 shadow-lg">
-        <div className="bg-red-500 flex mx-auto justify-center rounded-full h-12 w-12 items-center transition-transform duration-1000 ease-linear animate-slideup">
+        <div className="bg-red-500 flex mx-auto justify-center rounded-full h-12 w-12 items-center">
           <AiFillLock size={25} />
         </div>
         <h2 className="text-center">{isSignup ? "Sign Up" : "Sign In"}</h2>

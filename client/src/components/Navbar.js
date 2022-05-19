@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 import { logout } from "../redux/features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import defaultUserImg from "../images/default-user.png";
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -40,7 +41,7 @@ const Navbar = () => {
         <div className="flex items-center space-x-4">
           <h2 className="font-semibold text-xl">{user?.result?.name}</h2>
           <img
-            src={user?.result?.imageUrl}
+            src={user?.result?.imageUrl || defaultUserImg}
             alt="test user"
             className="rounded-full h-12 w-12 object-cover"
           />
