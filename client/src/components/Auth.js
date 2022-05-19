@@ -6,6 +6,7 @@ import { AiFillLock } from "react-icons/ai";
 import { FaGoogle } from "react-icons/fa";
 import AuthInput from "./AuthInput";
 import { GoogleLogin } from "react-google-login";
+import { signin, signup } from "../redux/features/authSlice";
 
 const initialFormValues = {
   firstName: "",
@@ -16,7 +17,7 @@ const initialFormValues = {
 };
 
 const Auth = () => {
-  const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState(initialFormValues);
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
@@ -24,6 +25,12 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formValues);
+    if (isSignup) {
+      dispatch(signup(formValues, navigate));
+    } else {
+      dispatch(signin(formValues, navigate));
+    }
   };
 
   const handleChange = (e) => {

@@ -3,7 +3,7 @@ import logo from "../images/lift2.jpeg";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 import { logout } from "../redux/features/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import defaultUserImg from "../images/default-user.png";
 
 const Navbar = () => {
