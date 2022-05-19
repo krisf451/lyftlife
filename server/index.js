@@ -8,6 +8,7 @@ const morgan = require("morgan");
 require("dotenv").config();
 
 const workoutRoutes = require("./routes/workouts.js");
+const userRoutes = require("./routes/user.js");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(helmet());
 const PORT = process.env.PORT || 9000;
 
 app.use("/workouts", workoutRoutes);
+app.use("/user", userRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "sanity check for liftlyfe social" });
