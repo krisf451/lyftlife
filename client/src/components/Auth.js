@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signin } from "../redux/features/authSlice";
+import { auth } from "../redux/features/authSlice";
 import { AiFillLock } from "react-icons/ai";
 import { FaGoogle } from "react-icons/fa";
 import AuthInput from "./AuthInput";
@@ -50,12 +50,11 @@ const Auth = () => {
     const token = res?.tokenId;
 
     try {
-      dispatch(signin({ result, token }));
+      dispatch(auth({ result, token }));
       navigate("/");
     } catch (error) {
       console.log(error);
     }
-    console.log(res);
   };
 
   const googleFailure = async (error) => {
