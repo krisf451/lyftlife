@@ -4,7 +4,9 @@ import AuthInput from "./AuthInput";
 
 const Auth = () => {
   const [formValues, setFormValues] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
   const isSignup = true;
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -24,6 +26,11 @@ const Auth = () => {
       confirmPassword: "",
     });
   };
+
+  const handleShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen w-full">
       <div className="w-[400px] mx-auto bg-gray-300 rounded-lg p-4 shadow-lg">
@@ -55,43 +62,43 @@ const Auth = () => {
                   handleChange={handleChange}
                   half
                 />
-                <AuthInput
-                  type="email"
-                  name="email"
-                  label="Email"
-                  placeholder="Email"
-                  value={formValues.email}
-                  handleChange={handleChange}
-                />
-                <AuthInput
-                  type="password"
-                  name="password"
-                  label="Password"
-                  placeholder="Example: abc123"
-                  value={formValues.password}
-                  handleChange={handleChange}
-                />
-                <AuthInput
-                  type="password"
-                  name="confirmPassword"
-                  label="Confirm Password"
-                  placeholder="abc123"
-                  value={formValues.confirmPassword}
-                  handleChange={handleChange}
-                />
-
-                <button type="submit" className="bg-white h-12 w-24 rounded-md">
-                  Submit
-                </button>
-                <button
-                  type="button"
-                  className="bg-gray-400 h-12 w-24 rounded-md ml-20"
-                  onClick={clear}
-                >
-                  Clear
-                </button>
               </>
             )}
+            <AuthInput
+              type="email"
+              name="email"
+              label="Email"
+              placeholder="Email"
+              value={formValues.email}
+              handleChange={handleChange}
+            />
+            <AuthInput
+              type={showPassword ? "text" : "password"}
+              name="password"
+              label="Password"
+              placeholder="Example: abc123"
+              value={formValues.password}
+              handleChange={handleChange}
+              handleShowPassword={handleShowPassword}
+            />
+            <AuthInput
+              type="password"
+              name="confirmPassword"
+              label="Confirm Password"
+              placeholder="abc123"
+              value={formValues.confirmPassword}
+              handleChange={handleChange}
+            />
+            <button type="submit" className="bg-white h-12 w-24 rounded-md">
+              Submit
+            </button>
+            <button
+              type="button"
+              className="bg-gray-400 h-12 w-24 rounded-md ml-20"
+              onClick={clear}
+            >
+              Clear
+            </button>
           </div>
         </form>
       </div>

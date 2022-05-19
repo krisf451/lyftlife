@@ -10,6 +10,7 @@ const AuthInput = ({
   label,
   handleChange,
   placeholder,
+  handleShowPassword,
 }) => {
   return (
     <div className={`relative col-span-12 ${half ? "sm:col-span-6" : ""}`}>
@@ -26,8 +27,11 @@ const AuthInput = ({
         autoFocus={autoFocus}
         required
       />
-      {name === "password" || name === "confirmPassword" ? (
-        <div className="absolute z-10 bottom-0 left-[18.5rem] top-10">
+      {name === "password" ? (
+        <div
+          className="absolute z-10 bottom-0 left-[18.5rem] top-10"
+          onClick={handleShowPassword}
+        >
           {type === "password" ? (
             <MdVisibility size={25} />
           ) : (
