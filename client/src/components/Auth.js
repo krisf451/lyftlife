@@ -6,7 +6,7 @@ import { AiFillLock } from "react-icons/ai";
 import { FaGoogle } from "react-icons/fa";
 import AuthInput from "./AuthInput";
 import { GoogleLogin } from "react-google-login";
-import { signin, signup } from "../redux/features/authSlice";
+import { asyncSignin, asyncSignup } from "../redux/features/authSlice";
 
 const initialFormValues = {
   firstName: "",
@@ -25,12 +25,15 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formValues);
     if (isSignup) {
-      dispatch(signup(formValues, navigate));
+      dispatch(asyncSignup(formValues));
     } else {
-      dispatch(signin(formValues, navigate));
+      dispatch(asyncSignin(formValues));
     }
+    //TODO:temporary fix until I can figure out how to get the DOM in the navbar to update properly after a successful signin
+    setTimeout(() => {
+      navigate("/");
+    }, 500);
   };
 
   const handleChange = (e) => {

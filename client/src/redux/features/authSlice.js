@@ -3,22 +3,21 @@ import { BASE_URL } from "../../api/index";
 
 const initialState = {
   authData: null,
+  loading: false,
 };
 
 export const asyncSignup = createAsyncThunk(
   "auth/asyncSignup",
-  async (formData, navigate) => {
-    const res = await BASE_URL.post("/auth/signup");
-    console.log(res);
-    navigate("/");
+  async (formData) => {
+    const { data } = await BASE_URL.post("/user/signup", formData);
+    return data;
   }
 );
 export const asyncSignin = createAsyncThunk(
   "auth/asyncSignin",
-  async (formData, navigate) => {
-    const res = await BASE_URL.post("/auth/signin");
-    console.log(res);
-    navigate("/");
+  async (formData) => {
+    const { data } = await BASE_URL.post("/user/signin", formData);
+    return data;
   }
 );
 
@@ -37,9 +36,22 @@ const authSlice = createSlice({
       state.authData = null;
     },
   },
-  extraReducers: {},
+  extraReducers: {
+    [asyncSignin.fulfilled]: (state, action) => {
+      console.log("signin succesfully!!");
+      localStorage.clear();
+      localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
+      return { ...state, authData: action?.payload };
+    },
+    [asyncSignup.fulfilled]: (state, action) => {
+      console.log("signup succesfully!!");
+      localStorage.clear();
+      localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
+      return { ...state, authData: action?.payload };
+    },
+  },
 });
 
-export const { auth, logout, signin, signup } = authSlice.actions;
+export const { auth, logout } = authSlice.actions;
 
 export default authSlice.reducer;
