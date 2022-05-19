@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const auth = require("../middleware/auth.js");
 
 const {
   getWorkouts,
@@ -11,9 +12,10 @@ const {
 
 router.get("/", getWorkouts);
 router.get("/:id", getWorkoutById);
-router.post("/", createWorkout);
-router.put("/:id", updateWorkout);
-router.patch("/:id/likeWorkout", likeWorkout);
-router.delete("/:id", deleteWorkout);
+
+router.post("/", auth, createWorkout);
+router.put("/:id", auth, updateWorkout);
+router.patch("/:id/likeWorkout", auth, likeWorkout);
+router.delete("/:id", auth, deleteWorkout);
 
 module.exports = router;
