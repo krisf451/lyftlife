@@ -124,9 +124,7 @@ const Auth = () => {
             Clear
           </button>
           <GoogleLogin
-            clientId={
-              "712064212034-fg459nvfadj3h4etlqi0qef6pq8472kv.apps.googleusercontent.com"
-            }
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             render={(renderProps) => (
               <button
                 type="button"
