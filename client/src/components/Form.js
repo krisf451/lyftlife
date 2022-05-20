@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FileBase from "react-file-base64";
+// import FileBase from "react-file-base64";
 import {
   postAsyncWorkout,
   updateAsyncWorkout,

@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../images/lift2.jpeg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
+import { logout } from "../redux/features/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import defaultUserImg from "../images/default-user.png";
 
 const Navbar = () => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const { authData } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [authData]);
+
   return (
     <div className="w-full h-20 shadow-md flex items-center justify-between rounded-lg  mb-3">
       {/* logo */}
@@ -23,6 +35,35 @@ const Navbar = () => {
         <Link to="/about">About</Link>
         <Link to="/contact">Contact</Link>
       </div>
+
+      {/* User Information */}
+      {user ? (
+        <div className="flex items-center space-x-4">
+          <h2 className="font-semibold text-xl">{user?.result?.name}</h2>
+          <img
+            src={user?.result?.imageUrl || defaultUserImg}
+            alt="test user"
+            className="rounded-full h-12 w-12 object-cover"
+          />
+          <button
+            type="button"
+            className="bg-red-500 px-4 py-2 rounded-lg text-white cursor-pointer text-xl"
+            onClick={() => {
+              dispatch(logout());
+              navigate("/");
+              setUser(null);
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      ) : (
+        <Link to="/auth">
+          <button className="bg-green-400 px-4 py-2 rounded-lg text-white cursor-pointer text-xl">
+            Sign In
+          </button>
+        </Link>
+      )}
       <div className="mobile">
         <AiOutlineMenu size={30} className="mr-4 cursor-pointer" />
       </div>
