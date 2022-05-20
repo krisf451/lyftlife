@@ -3,7 +3,6 @@ import { BASE_URL } from "../../api/index";
 
 const initialState = {
   authData: null,
-  loading: false,
 };
 
 export const asyncSignup = createAsyncThunk(

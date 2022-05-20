@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../redux/features/authSlice";
 import { AiFillLock } from "react-icons/ai";
@@ -20,6 +20,8 @@ const Auth = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [error, setError] = useState("");
+  const { authData } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,10 +32,11 @@ const Auth = () => {
     } else {
       dispatch(asyncSignin(formValues));
     }
-    //TODO:temporary fix until I can figure out how to get the DOM in the navbar to update properly after a successful signin
-    setTimeout(() => {
-      navigate("/");
-    }, 500);
+    if (!error) {
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
+    }
   };
 
   const handleChange = (e) => {
@@ -53,6 +56,7 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
