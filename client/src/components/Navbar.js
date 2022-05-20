@@ -16,6 +16,12 @@ const Navbar = () => {
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [authData]);
 
+  const handleLogout = () => {
+    dispatch(logout());
+    setUser(null);
+    navigate("/");
+  };
+
   return (
     <div className="w-full h-20 shadow-md flex items-center justify-between rounded-lg  mb-3">
       {/* logo */}
@@ -48,11 +54,7 @@ const Navbar = () => {
           <button
             type="button"
             className="bg-red-500 px-4 py-2 rounded-lg text-white cursor-pointer text-xl"
-            onClick={() => {
-              dispatch(logout());
-              navigate("/");
-              setUser(null);
-            }}
+            onClick={handleLogout}
           >
             Logout
           </button>

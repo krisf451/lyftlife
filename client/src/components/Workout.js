@@ -18,7 +18,7 @@ const Workout = ({ workout, setCurrentId }) => {
           <div>
             <h1>{workout.title}</h1>
             <h3>
-              By: {workout.creator} - {moment(workout.createdAt).fromNow()}
+              By: {workout.name} - {moment(workout.createdAt).fromNow()}
             </h3>
           </div>
           <BiDotsHorizontalRounded
