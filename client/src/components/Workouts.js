@@ -10,6 +10,9 @@ const Workouts = ({ setCurrentId }) => {
   const { loading } = useSelector((state) => state.workouts);
 
   if (loading) return <Loading />;
+  if (workouts.length === 0)
+    return <h2 className="text-center">No Workouts</h2>;
+
   return (
     <div className="flex flex-wrap gap-4 justify-center xl:justify-start">
       {workouts?.map((workout) => (
