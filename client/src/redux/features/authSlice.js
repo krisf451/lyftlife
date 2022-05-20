@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { BASE_URL } from "../../api/index";
+import { signin, signup } from "../../api";
 
 const initialState = {
   authData: null,
@@ -8,14 +8,14 @@ const initialState = {
 export const asyncSignup = createAsyncThunk(
   "auth/asyncSignup",
   async (formData) => {
-    const { data } = await BASE_URL.post("/user/signup", formData);
+    const { data } = await signup(formData);
     return data;
   }
 );
 export const asyncSignin = createAsyncThunk(
   "auth/asyncSignin",
   async (formData) => {
-    const { data } = await BASE_URL.post("/user/signin", formData);
+    const { data } = await signin(formData);
     return data;
   }
 );

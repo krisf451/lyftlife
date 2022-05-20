@@ -35,7 +35,7 @@ const Auth = () => {
     if (!error) {
       setTimeout(() => {
         navigate("/");
-      }, 500);
+      }, 1000);
     }
   };
 
