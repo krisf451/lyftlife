@@ -1,12 +1,9 @@
 import React from "react";
-
+import gif from "../assets/spinner.gif";
 const Loading = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div
-        className="border-b-4 border-blue-600 animate-spin w-16 h-16 rounded-full"
-        role="status"
-      ></div>
+    <div className="flex justify-center items-center h-screen animate-spin">
+      <img src={gif} alt="spinner" />
     </div>
   );
 };

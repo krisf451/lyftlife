@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import FileBase from "react-file-base64";
 import {
   postAsyncWorkout,
   updateAsyncWorkout,
 } from "../redux/features/workoutsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { Loading } from ".";
 
 const initialFormValues = {
   title: "",
@@ -21,7 +22,13 @@ const Form = ({ currentId, setCurrentId }) => {
   );
   const { title, description, workoutType, tags, selectedFile } = formValues;
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const location = useLocation();
+  const { authData, isLoading } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location, authData]);
 
   const handleChange = (e) => {
     setFormValues({
@@ -31,8 +38,9 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   const handleSubmit = (e) => {
-    let newWorkout = { ...formValues, name: user?.result?.name };
     e.preventDefault();
+
+    let newWorkout = { ...formValues, name: user?.result?.name };
     if (currentId) {
       dispatch(updateAsyncWorkout(newWorkout));
     } else {
@@ -47,14 +55,22 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   useEffect(() => {
+    if (!workout?.title) clear();
     if (workout) {
       setFormValues(workout);
     }
+    //eslint-disable-next-line
   }, [workout]);
 
-  if (!user?.result?.name) {
+  if (isLoading) return <Loading />;
+
+  if (!user?.result) {
     return (
-      <div>Create an account to start creating and commenting on workouts!</div>
+      <div className="flex justify-center items-center w-full mt-4 p-2 ml-2">
+        <p>
+          Please Sign In to create your own workouts and like other's workouts
+        </p>
+      </div>
     );
   }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Toaster } from "react-hot-toast";
 import { Routes, Route } from "react-router-dom";
 
-import { Navbar, Home, Auth } from "./components";
+import { Home, Auth, Navbar } from "./components";
 
 const App = () => {
   return (
@@ -11,7 +11,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/auth" element={<Auth />} />
-        <Route path="/*" element={<Home />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </div>
   );

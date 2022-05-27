@@ -20,18 +20,23 @@ const Auth = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
-  const [error] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isSignup) {
-      dispatch(asyncSignup(formValues));
-    } else {
-      dispatch(asyncSignin(formValues));
+    try {
+      if (isSignup) {
+        dispatch(asyncSignup(formValues));
+      } else {
+        dispatch(asyncSignin(formValues));
+      }
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
+    } catch (e) {
+      console.log(e);
     }
-    navigate("/");
   };
 
   const handleChange = (e) => {

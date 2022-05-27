@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../images/lift2.jpeg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 import { logout } from "../redux/features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,19 +8,24 @@ import defaultUserImg from "../images/default-user.png";
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const { authData } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { authData } = useSelector((state) => state.auth);
+
+  const handleLogout = async () => {
+    try {
+      dispatch(logout());
+      navigate("/auth");
+      setUser(null);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("profile")));
-  }, [authData]);
-
-  const handleLogout = () => {
-    dispatch(logout());
-    setUser(null);
-    navigate("/");
-  };
+  }, [location, authData]);
 
   return (
     <div className="w-full h-20 shadow-md flex items-center justify-between rounded-lg  mb-3">
@@ -43,7 +48,7 @@ const Navbar = () => {
       </div>
 
       {/* User Information */}
-      {user ? (
+      {user?.result ? (
         <div className="flex items-center space-x-4">
           <h2 className="font-semibold text-xl">{user?.result?.name}</h2>
           <img
