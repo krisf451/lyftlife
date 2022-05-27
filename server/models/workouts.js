@@ -4,6 +4,7 @@ const workoutSchema = mongoose.Schema({
   title: String,
   description: String,
   workoutType: String,
+  name: String,
   creator: String,
   tags: [String],
   selectedFile: String,

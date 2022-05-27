@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const initialFormValues = {
   title: "",
-  creator: "",
   description: "",
   workoutType: "",
   tags: "",
@@ -20,9 +19,9 @@ const Form = ({ currentId, setCurrentId }) => {
   const workout = useSelector((state) =>
     currentId ? state.workouts.workouts.find((w) => w._id === currentId) : null
   );
-  const { title, description, workoutType, tags, creator, selectedFile } =
-    formValues;
+  const { title, description, workoutType, tags, selectedFile } = formValues;
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   const handleChange = (e) => {
     setFormValues({
@@ -32,11 +31,12 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   const handleSubmit = (e) => {
+    let newWorkout = { ...formValues, name: user?.result?.name };
     e.preventDefault();
     if (currentId) {
-      dispatch(updateAsyncWorkout(formValues, currentId));
+      dispatch(updateAsyncWorkout(newWorkout));
     } else {
-      dispatch(postAsyncWorkout(formValues));
+      dispatch(postAsyncWorkout(newWorkout));
     }
     clear();
   };
@@ -52,6 +52,12 @@ const Form = ({ currentId, setCurrentId }) => {
     }
   }, [workout]);
 
+  if (!user?.result?.name) {
+    return (
+      <div>Create an account to start creating and commenting on workouts!</div>
+    );
+  }
+
   return (
     <div className="flex items-center justify-center w-full">
       <form
@@ -61,23 +67,6 @@ const Form = ({ currentId, setCurrentId }) => {
         <h2 className="font-extrabold text-3xl mb-4 mt-2">
           {currentId ? "Editing" : "Creating"} a Workout
         </h2>
-        <div>
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="creator"
-          >
-            Creator
-          </label>
-          <input
-            className="h-12 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"
-            id="creator"
-            type="text"
-            name="creator"
-            value={creator}
-            onChange={handleChange}
-            placeholder="Creator"
-          />
-        </div>
         <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -175,27 +164,6 @@ const Form = ({ currentId, setCurrentId }) => {
             onChange={handleChange}
             placeholder="IMG address"
           />
-          {/* <input
-            id="selectedFile"
-            name="selectedFile"
-            accept=".jpg, .png, .jpeg"
-            type="file"
-            value=""
-            onChange={(e) => {
-              console.log(e.target.files[0]);
-              setFormValues({
-                ...formValues,
-                selectedFile: e.target.files[0],
-              });
-            }}
-          /> */}
-          {/* <FileBase
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) =>
-              setFormValues({ ...formValues, selectedFile: base64 })
-            }
-          /> */}
         </div>
         <div className="flex items-center justify-start">
           <button

@@ -30,9 +30,12 @@ const getWorkoutById = async (req, res) => {
 
 //CREATE NEW WORKOUT ENDPOINT
 const createWorkout = async (req, res) => {
-  //TODO: Will Add Validation middleware soon
   const workout = req.body;
-  const newWorkout = new Workouts(workout);
+  const newWorkout = new Workouts({
+    ...workout,
+    creator: req.userId,
+    createdAt: new Date().toISOString(),
+  });
   try {
     await newWorkout.save();
     res.status(201).json(newWorkout);
