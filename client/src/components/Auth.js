@@ -31,11 +31,7 @@ const Auth = () => {
     } else {
       dispatch(asyncSignin(formValues));
     }
-    if (!error) {
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
-    }
+    navigate("/");
   };
 
   const handleChange = (e) => {

@@ -38,15 +38,13 @@ const authSlice = createSlice({
   extraReducers: {
     [asyncSignin.fulfilled]: (state, action) => {
       console.log("signin succesfully!!");
-      localStorage.clear();
       localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
-      return { ...state, authData: action?.payload };
+      state.authData = action.payload;
     },
     [asyncSignup.fulfilled]: (state, action) => {
       console.log("signup succesfully!!");
-      localStorage.clear();
       localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
-      return { ...state, authData: action?.payload };
+      state.authData = action.payload;
     },
   },
 });
