@@ -2,9 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { signin, signup } from "../../api";
 
 let user = JSON.parse(localStorage.getItem("profile"));
-const initialState = user
-  ? { isLoading: false, error: null, authData: { ...user } }
-  : { isLoading: true, error: null, authData: null };
+
+const initialState = {
+  authData: user ? user : null,
+  isLoading: false,
+  error: null,
+};
 
 export const asyncSignup = createAsyncThunk(
   "auth/asyncSignup",
@@ -54,6 +57,7 @@ const authSlice = createSlice({
       localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
       state.authData = action.payload;
       state.isLoading = false;
+      window.location.assign("/");
     },
     [asyncSignin.rejected]: (state, action) => {
       console.log("signin rejected!!");
@@ -67,6 +71,7 @@ const authSlice = createSlice({
       console.log("signup succesfully!!");
       localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
       state.authData = action.payload;
+      window.location.assign("/");
     },
     [asyncSignup.rejected]: (state, action) => {
       console.log("signup rejected!!");

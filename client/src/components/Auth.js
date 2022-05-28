@@ -31,9 +31,6 @@ const Auth = () => {
       } else {
         dispatch(asyncSignin(formValues));
       }
-      setTimeout(() => {
-        navigate("/");
-      }, 500);
     } catch (e) {
       console.log(e);
     }
