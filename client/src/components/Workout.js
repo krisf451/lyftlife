@@ -11,9 +11,6 @@ import defaultWorkout from "../images/workout_default.jpg";
 const Workout = ({ workout, setCurrentId }) => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
-  const isUsers =
-    user?.result?._id === workout.creator ||
-    user?.result?.googleId === workout.creator;
 
   return (
     <div className="h-96 w-96 flex flex-col justify-center items-start border border-x-2 rounded-xl p-4 cursor-pointer overflow-hidden shadow-xl">
@@ -26,7 +23,8 @@ const Workout = ({ workout, setCurrentId }) => {
               By: {workout.name} - {moment(workout.createdAt).fromNow()}
             </h3>
           </div>
-          {isUsers && (
+          {(user?.result?._id === workout.creator ||
+            user?.result?.googleId === workout.creator) && (
             <BiDotsHorizontalRounded
               size={25}
               className="mb-4 transition-transform linear animate-slideup duration-500 hover:scale-125"
@@ -63,7 +61,8 @@ const Workout = ({ workout, setCurrentId }) => {
           <FiThumbsUp size={25} className="cursor-pointer mr-2" />
           {workout.likeCount}
         </div>
-        {isUsers && (
+        {(user?.result?._id === workout.creator ||
+          user?.result?.googleId === workout.creator) && (
           <AiFillDelete
             size={25}
             className="cursor-pointer"

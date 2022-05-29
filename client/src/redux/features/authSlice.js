@@ -42,8 +42,7 @@ const authSlice = createSlice({
       state.authData = action.payload;
     },
     logout: (state) => {
-      console.log(state);
-      localStorage.clear();
+      localStorage.removeItem("profile");
       state.authData = null;
     },
   },
@@ -61,6 +60,7 @@ const authSlice = createSlice({
     },
     [asyncSignin.rejected]: (state, action) => {
       console.log("signin rejected!!");
+      state.isLoading = false;
       state.error = action.payload;
     },
     [asyncSignup.pending]: (state) => {
@@ -75,6 +75,7 @@ const authSlice = createSlice({
     },
     [asyncSignup.rejected]: (state, action) => {
       console.log("signup rejected!!");
+      state.isLoading = false;
       state.error = action.payload;
     },
   },
