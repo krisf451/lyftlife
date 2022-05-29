@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../redux/features/authSlice";
 import { AiFillLock } from "react-icons/ai";
@@ -7,6 +7,7 @@ import { FaGoogle } from "react-icons/fa";
 import AuthInput from "./AuthInput";
 import { GoogleLogin } from "react-google-login";
 import { asyncSignin, asyncSignup } from "../redux/features/authSlice";
+import spinnersvg from "../assets/black-spinner.svg";
 
 const initialFormValues = {
   firstName: "",
@@ -22,6 +23,7 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isLoading } = useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -136,9 +138,15 @@ const Auth = () => {
 
           <button
             type="submit"
-            className="bg-blue-400 text-white h-12 w-full rounded-md transition-all hover:bg-blue-500 duration-300 ease-in-out mb-2"
+            className="bg-blue-400 text-white h-12 w-full rounded-md transition-all hover:bg-blue-500 duration-300 ease-in-out mb-2 flex justify-center items-center"
           >
-            {isSignup ? "Sign Up" : "Sign In"}
+            {isLoading ? (
+              <img src={spinnersvg} alt="spinner" className="h-12 w-12" />
+            ) : isSignup ? (
+              "Sign Up"
+            ) : (
+              "Sign In"
+            )}
           </button>
           <button
             type="button"

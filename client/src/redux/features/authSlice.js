@@ -72,6 +72,7 @@ const authSlice = createSlice({
       localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
       state.authData = action.payload;
       window.location.assign("/");
+      state.isLoading = false;
     },
     [asyncSignup.rejected]: (state, action) => {
       console.log("signup rejected!!");

@@ -16,7 +16,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       dispatch(logout());
-      navigate("/auth");
+      navigate("/");
       setUser(null);
     } catch (e) {
       console.log(e);
