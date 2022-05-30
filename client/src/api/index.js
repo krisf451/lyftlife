@@ -15,6 +15,12 @@ API.interceptors.request.use((req) => {
 });
 
 export const fetchWorkouts = () => API.get("/workouts");
+export const fetchWorkoutsBySearch = (searchQuery) =>
+  API.get(
+    `/workouts/search?searchQuery=${searchQuery.search || "none"}&tags=${
+      searchQuery.tags
+    }`
+  );
 export const fetchWorkoutById = (id) => API.get(`/workouts/${id}`);
 export const createWorkout = (workout) => API.post("/workouts", workout);
 export const updateWorkout = (id, updatedWorkout) =>

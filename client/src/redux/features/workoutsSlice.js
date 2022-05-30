@@ -5,6 +5,7 @@ import {
   createWorkout,
   updateWorkout,
   deleteWorkout,
+  fetchWorkoutsBySearch,
 } from "../../api";
 import toast from "react-hot-toast";
 
@@ -19,6 +20,18 @@ export const fetchAsyncWorkouts = createAsyncThunk(
   async () => {
     const res = await fetchWorkouts();
     return res.data.workouts;
+  }
+);
+
+export const fetchAsyncWorkoutsBySearch = createAsyncThunk(
+  "workouts/fetchAsyncWorkoutsBySearch",
+  async (searchQuery, thunkAPI) => {
+    try {
+      const res = await fetchWorkoutsBySearch(searchQuery);
+      console.log(res, "IN BY SEARCH ASYNC FUNCTIon");
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
   }
 );
 
