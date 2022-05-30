@@ -3,6 +3,7 @@ const auth = require("../middleware/auth.js");
 
 const {
   getWorkouts,
+  getWorkoutsBySearch,
   getWorkoutById,
   createWorkout,
   updateWorkout,
@@ -11,6 +12,7 @@ const {
 } = require("../controllers/workouts.js");
 
 router.get("/", getWorkouts);
+router.get("/search", getWorkoutsBySearch);
 router.get("/:id", getWorkoutById);
 
 router.post("/", auth, createWorkout);

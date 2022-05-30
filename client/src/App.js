@@ -19,7 +19,7 @@ const App = () => {
             authData === null ? <Auth /> : <Navigate to="/workouts" replace />
           }
         />
-        <Route path="/*" element={<Navigate to="/workouts" replace />} />
+        <Route path="/" element={<Navigate to="/workouts" replace />} />
         <Route path="/workouts" element={<Home />} />
         <Route path="/workouts/search" element={<Home />} />
         <Route path="/workouts/:id" element={<WorkoutDetails />} />

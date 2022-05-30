@@ -17,7 +17,7 @@ API.interceptors.request.use((req) => {
 export const fetchWorkouts = () => API.get("/workouts");
 export const fetchWorkoutsBySearch = (searchQuery) =>
   API.get(
-    `/workouts/search?searchQuery=${searchQuery.search || "none"}&tags=${
+    `/workouts/search?searchQuery=${searchQuery.searchTerm || "none"}&tags=${
       searchQuery.tags
     }`
   );

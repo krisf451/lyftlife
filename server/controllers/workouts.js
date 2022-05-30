@@ -15,6 +15,24 @@ const getWorkouts = async (req, res) => {
   }
 };
 
+//GET ALL WORKOUTS BY SEARCH ENDPOINT
+const getWorkoutsBySearch = async (req, res) => {
+  const { searchQuery, tags } = req.query;
+  try {
+    const title = new RegExp(searchQuery, "i");
+    const workouts = await Workouts.find({
+      $or: [{ title }, { tags: { $in: tags.split(",") } }],
+    });
+    res.status(200).json({
+      success: "OK",
+      numberOfWorkouts: workouts.length,
+      workouts: workouts,
+    });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 //GET WORKOUT BY ID ENDPOINT
 const getWorkoutById = async (req, res) => {
   const { id: _id } = req.params;
@@ -85,6 +103,7 @@ const deleteWorkout = async (req, res) => {
 
 module.exports = {
   getWorkouts,
+  getWorkoutsBySearch,
   getWorkoutById,
   createWorkout,
   updateWorkout,
