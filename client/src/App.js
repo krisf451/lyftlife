@@ -1,8 +1,8 @@
 import React from "react";
 import { Toaster } from "react-hot-toast";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import { Home, Auth, Navbar } from "./components";
+import { Home, Auth, Navbar, WorkoutDetails } from "./components";
 
 const App = () => {
   return (
@@ -11,7 +11,10 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/auth" element={<Auth />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/*" element={<Navigate to="/workouts" replace />} />
+        <Route path="/workouts" element={<Home />} />
+        <Route path="/workouts/search" element={<Home />} />
+        <Route path="/workouts/:id" element={<WorkoutDetails />} />
       </Routes>
     </div>
   );

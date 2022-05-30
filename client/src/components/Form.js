@@ -66,7 +66,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   if (!user?.result) {
     return (
-      <div className="flex justify-center items-center w-full mt-4 p-2 ml-2">
+      <div className="flex justify-center items-center w-full mt-4 ml-4">
         <p>
           Please Sign In to create your own workouts and like other's workouts
         </p>
@@ -75,7 +75,7 @@ const Form = ({ currentId, setCurrentId }) => {
   }
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex flex-col items-center justify-center w-full">
       <form
         className="bg-white shadow-xl rounded px-4 pt-4 pb-6 mb-4 w-96"
         onSubmit={handleSubmit}
