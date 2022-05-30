@@ -56,7 +56,7 @@ const authSlice = createSlice({
       localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
       state.authData = action.payload;
       state.isLoading = false;
-      window.location.assign("/");
+      window.location.assign("/workouts");
     },
     [asyncSignin.rejected]: (state, action) => {
       console.log("signin rejected!!");
@@ -71,7 +71,7 @@ const authSlice = createSlice({
       console.log("signup succesfully!!");
       localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
       state.authData = action.payload;
-      window.location.assign("/");
+      window.location.assign("/workouts");
       state.isLoading = false;
     },
     [asyncSignup.rejected]: (state, action) => {

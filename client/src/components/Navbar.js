@@ -16,7 +16,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       dispatch(logout());
-      navigate("/");
+      navigate("/workouts");
       setUser(null);
     } catch (e) {
       console.log(e);
@@ -30,7 +30,7 @@ const Navbar = () => {
   return (
     <div className="w-full h-20 shadow-md flex items-center justify-between rounded-lg  mb-3">
       {/* logo */}
-      <Link to="/" className="flex items-center">
+      <Link to="/workouts" className="flex items-center">
         <img
           src={logo}
           alt="logo"
@@ -43,8 +43,8 @@ const Navbar = () => {
 
       {/* links */}
       <div className="flex justify-between w-1/4">
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
+        <Link to="/workouts">About</Link>
+        <Link to="/workouts">Contact</Link>
       </div>
 
       {/* User Information */}
