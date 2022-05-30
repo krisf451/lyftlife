@@ -49,16 +49,22 @@ const Navbar = () => {
 
       {/* User Information */}
       {user?.result ? (
-        <div className="flex items-center space-x-4">
-          <h2 className="font-semibold text-xl">{user?.result?.name}</h2>
-          <img
-            src={user?.result?.imageUrl || defaultUserImg}
-            alt="test user"
-            className="rounded-full h-12 w-12 object-cover"
-          />
+        <div className="flex items-center">
+          <h2 className="font-semibold text-xl mr-2">{user?.result?.name}</h2>
+          <div className="h-12 w-12 rounded-full flex items-center justify-center bg-gray-300 text-2xl">
+            {user?.result?.imageUrl && (
+              <img
+                src={user?.result?.imageUrl || defaultUserImg}
+                alt="google profile"
+                className="object-cover"
+              />
+            )}
+            {user?.result?.name.charAt(0)}
+          </div>
+
           <button
             type="button"
-            className="bg-red-500 px-4 py-2 rounded-lg text-white cursor-pointer text-xl"
+            className="bg-red-500 px-4 py-2 rounded-lg text-white cursor-pointer text-xl ml-6"
             onClick={handleLogout}
           >
             Logout
