@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const getWorkouts = async (req, res) => {
   const { page } = req.query;
   try {
-    const LIMIT = 4;
+    const LIMIT = 6;
     const startIndex = (Number(page) - 1) * LIMIT;
     const total = await Workouts.countDocuments({});
 
@@ -15,7 +15,8 @@ const getWorkouts = async (req, res) => {
       .skip(startIndex);
     res.status(200).json({
       success: "OK",
-      numberOfWorkouts: workouts.length,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
       workouts: workouts,
     });
   } catch (error) {

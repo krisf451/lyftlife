@@ -14,6 +14,8 @@ const initialState = {
   workout: {},
   loading: false,
   error: null,
+  currentPage: null,
+  numberOfPages: null,
 };
 
 export const fetchAsyncWorkouts = createAsyncThunk(
@@ -21,7 +23,7 @@ export const fetchAsyncWorkouts = createAsyncThunk(
   async (page, thunkAPI) => {
     try {
       const res = await fetchWorkouts(page);
-      return res.data.workouts;
+      return res.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.response.data);
     }
@@ -83,7 +85,9 @@ const workoutsSlice = createSlice({
     },
     [fetchAsyncWorkouts.fulfilled]: (state, action) => {
       console.log("fetched workouts succesfully!!");
-      state.workouts = action.payload;
+      state.workouts = action.payload.workouts;
+      state.currentPage = action.payload.currentPage;
+      state.numberOfPages = action.payload.numberOfPages;
       state.loading = false;
     },
     [fetchAsyncWorkouts.rejected]: (state, action) => {
@@ -109,24 +113,14 @@ const workoutsSlice = createSlice({
       console.log("fetched workout BY ID succesfully!");
       state.workout = action.payload;
     },
-    [postAsyncWorkout.pending]: (state) => {
-      console.log("posting new workout pending");
-      state.loading = true;
-    },
     [postAsyncWorkout.fulfilled]: (state, action) => {
       console.log("posted new workout succesfully!!");
       toast.success("POSTED SUCCESSFULLY!!");
       state.workouts.push(action.payload);
-      state.loading = false;
-    },
-    [updateAsyncWorkout.pending]: (state) => {
-      console.log("updating workout pending");
-      state.loading = true;
     },
     [updateAsyncWorkout.fulfilled]: (state, action) => {
       console.log("updated workout succesfully!!");
       toast.success("UPDATED SUCCESSFULLY!!");
-      state.loading = false;
       state.workouts = state.workouts.map((workout) =>
         workout?._id === action?.payload._id ? action.payload : workout
       );
