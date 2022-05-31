@@ -115,8 +115,8 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <Form currentId={currentId} setCurrentId={setCurrentId} />
         <Pagination />
+        <Form currentId={currentId} setCurrentId={setCurrentId} />
       </div>
       <div className="col-span-12 md:col-span-6 xl:col-span-8 px-2">
         <Workouts setCurrentId={setCurrentId} />

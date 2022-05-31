@@ -14,7 +14,7 @@ const Workout = ({ workout, setCurrentId }) => {
   const { authData } = useSelector((state) => state.auth);
 
   return (
-    <div className="h-96 w-96 flex flex-col justify-center items-start border border-x-2 rounded-xl p-4 cursor-pointer overflow-hidden shadow-xl">
+    <div className="h-[500px] w-[250px] flex flex-col justify-center items-start border border-x-2 rounded-xl p-4 cursor-pointer overflow-hidden shadow-xl">
       {/* Workout Figure + Figcaption (Experimental) */}
       <figure className="relative w-full">
         <div className="flex items-center justify-between w-full">
