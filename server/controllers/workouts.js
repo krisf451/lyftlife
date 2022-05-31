@@ -3,8 +3,16 @@ const mongoose = require("mongoose");
 
 //GET ALL WORKOUTS ENDPOINT
 const getWorkouts = async (req, res) => {
+  const { page } = req.query;
   try {
-    const workouts = await Workouts.find();
+    const LIMIT = 4;
+    const startIndex = (Number(page) - 1) * LIMIT;
+    const total = await Workouts.countDocuments({});
+
+    const workouts = await Workouts.find()
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
     res.status(200).json({
       success: "OK",
       numberOfWorkouts: workouts.length,
