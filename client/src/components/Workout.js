@@ -14,7 +14,7 @@ const Workout = ({ workout, setCurrentId }) => {
   const { authData } = useSelector((state) => state.auth);
 
   return (
-    <div className="h-[500px] w-[250px] flex flex-col justify-center items-start border border-x-2 rounded-xl p-4 cursor-pointer overflow-hidden shadow-xl">
+    <div className="h-[475px] w-[250px] flex flex-col justify-between items-start border border-x-2 rounded-xl p-4 cursor-pointer overflow-hidden shadow-xl">
       {/* Workout Figure + Figcaption (Experimental) */}
       <figure className="relative w-full">
         <div className="flex items-center justify-between w-full">
@@ -58,7 +58,7 @@ const Workout = ({ workout, setCurrentId }) => {
       </div>
 
       {/* Workout Like and Delete Buttons */}
-      <div className="flex justify-between w-full">
+      <div className="flex justify-between w-full self-end">
         <div className="flex items-center">
           <FiThumbsUp size={25} className="cursor-pointer mr-2" />
           {workout.likeCount}
