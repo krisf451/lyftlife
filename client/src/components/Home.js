@@ -23,12 +23,12 @@ const Home = () => {
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
 
-  useEffect(() => {
-    dispatch(fetchAsyncWorkouts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchAsyncWorkouts());
+  // }, [dispatch]);
 
   const searchWorkouts = () => {
-    if (searchTerm.trim() || tags) {
+    if (searchTerm.trim().length > 0 || tags.length > 0) {
       //dispatch searchWorkouts logic
       dispatch(
         fetchAsyncWorkoutsBySearch({ searchTerm, tags: tags.join(",") })
@@ -81,7 +81,7 @@ const Home = () => {
               type="text"
               name="search"
               value={searchTerm}
-              onKeyPress={handleKeyPress}
+              onKeyDownCapture={handleKeyPress}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search For Workouts"
             />
@@ -115,7 +115,7 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <Pagination />
+        <Pagination page={page} />
         <Form currentId={currentId} setCurrentId={setCurrentId} />
       </div>
       <div className="col-span-12 md:col-span-6 xl:col-span-8 px-2">
