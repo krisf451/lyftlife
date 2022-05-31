@@ -13,6 +13,7 @@ const initialState = {
   workouts: [],
   workout: {},
   loading: false,
+  error: null,
 };
 
 export const fetchAsyncWorkouts = createAsyncThunk(
@@ -28,7 +29,7 @@ export const fetchAsyncWorkoutsBySearch = createAsyncThunk(
   async (searchQuery, thunkAPI) => {
     try {
       const res = await fetchWorkoutsBySearch(searchQuery);
-      console.log(res, "IN BY SEARCH ASYNC FUNCTIon");
+      return res.data.workouts;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.response.data);
     }
@@ -74,56 +75,64 @@ const workoutsSlice = createSlice({
   extraReducers: {
     [fetchAsyncWorkouts.pending]: (state) => {
       console.log("fetching workouts pending");
-      return { ...state, loading: true };
+      state.loading = true;
     },
     [fetchAsyncWorkouts.fulfilled]: (state, action) => {
       console.log("fetched workouts succesfully!!");
-      return { ...state, workouts: action.payload, loading: false };
+      state.workouts = action.payload;
+      state.loading = false;
     },
-    [fetchAsyncWorkouts.rejected]: () => {
+    [fetchAsyncWorkouts.rejected]: (state, action) => {
       console.log("fetching workouts failed");
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [fetchAsyncWorkoutsBySearch.pending]: (state) => {
+      console.log("fetching workouts by search pending");
+      state.loading = true;
+    },
+    [fetchAsyncWorkoutsBySearch.fulfilled]: (state, action) => {
+      console.log("fetched workouts by search succesfully!!");
+      state.workouts = action.payload;
+      state.loading = false;
+    },
+    [fetchAsyncWorkoutsBySearch.rejected]: (state, action) => {
+      console.log("fetching workouts by search failed");
+      state.loading = false;
+      state.error = action.payload;
     },
     [fetchAsyncWorkoutById.fulfilled]: (state, action) => {
       console.log("fetched workout BY ID succesfully!");
-      return { ...state, workout: action.payload };
+      state.workout = action.payload;
     },
     [postAsyncWorkout.pending]: (state) => {
       console.log("posting new workout pending");
-      return { ...state, loading: true };
+      state.loading = true;
     },
     [postAsyncWorkout.fulfilled]: (state, action) => {
       console.log("posted new workout succesfully!!");
       toast.success("POSTED SUCCESSFULLY!!");
-      return {
-        ...state,
-        workouts: [...state.workouts, action.payload],
-        loading: false,
-      };
+      state.workouts.push(action.payload);
+      state.loading = false;
     },
     [updateAsyncWorkout.pending]: (state) => {
       console.log("updating workout pending");
-      return { ...state, loading: true };
+      state.loading = true;
     },
     [updateAsyncWorkout.fulfilled]: (state, action) => {
       console.log("updated workout succesfully!!");
       toast.success("UPDATED SUCCESSFULLY!!");
-      return {
-        ...state,
-        loading: false,
-        workouts: state?.workouts?.map((workout) =>
-          workout?._id === action?.payload?._id ? action.payload : workout
-        ),
-      };
+      state.loading = false;
+      state.workouts = state.workouts.map((workout) =>
+        workout?._id === action?.payload._id ? action.payload : workout
+      );
     },
     [deleteAsyncWorkout.fulfilled]: (state, action) => {
       console.log("deleted workout succesfully!!");
       toast.success("DELETED SUCESSFULLY");
-      return {
-        ...state,
-        workouts: state?.workouts?.filter(
-          (workout) => workout._id !== action.payload
-        ),
-      };
+      state.workouts = state.workouts.filter(
+        (workout) => workout?._id !== action.payload
+      );
     },
   },
 });
