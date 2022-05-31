@@ -5,7 +5,10 @@ import { useDispatch } from "react-redux";
 import { fetchAsyncWorkouts } from "../redux/features/workoutsSlice";
 
 const Pagination = ({ page }) => {
-  const { workouts } = useSelector((state) => state.workouts);
+  const { workouts, currentPage, numberOfPages } = useSelector(
+    (state) => state.workouts
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,8 +20,12 @@ const Pagination = ({ page }) => {
   return (
     <div className="flex w-full justify-center">
       <div className="flex justify-between w-32">
-        <Link to={`/workouts?page=1`}>Previous</Link>
-        <Link to={`/workouts?page=2`}>Next</Link>
+        <Link to={`/workouts?page=${page >= 2 ? page - 1 : 1}`}>Previous</Link>
+        <Link
+          to={`/workouts?page=${page < numberOfPages ? Number(page) + 1 : 1}`}
+        >
+          Next
+        </Link>
       </div>
     </div>
   );
