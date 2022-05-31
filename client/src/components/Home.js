@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Workouts } from "../components";
 import { useDispatch } from "react-redux";
-import {
-  fetchAsyncWorkouts,
-  fetchAsyncWorkoutsBySearch,
-} from "../redux/features/workoutsSlice";
+import { fetchAsyncWorkoutsBySearch } from "../redux/features/workoutsSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "./Pagination";
 import ChipInput from "material-ui-chip-input";
@@ -22,10 +19,6 @@ const Home = () => {
   const navigate = useNavigate();
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
-
-  // useEffect(() => {
-  //   dispatch(fetchAsyncWorkouts());
-  // }, [dispatch]);
 
   const searchWorkouts = () => {
     if (searchTerm.trim().length > 0 || tags.length > 0) {
@@ -55,6 +48,7 @@ const Home = () => {
   const clearSearch = () => {
     setSearchTerm("");
     setTags([]);
+    navigate("/");
   };
 
   const handleAdd = (tag) => {

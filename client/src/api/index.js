@@ -14,7 +14,7 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const fetchWorkouts = () => API.get("/workouts");
+export const fetchWorkouts = (page) => API.get(`/workouts?page=${page}`);
 export const fetchWorkoutsBySearch = (searchQuery) =>
   API.get(
     `/workouts/search?searchQuery=${searchQuery.searchTerm || "none"}&tags=${

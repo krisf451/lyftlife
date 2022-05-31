@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -9,13 +9,17 @@ const Pagination = ({ page }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAsyncWorkouts());
-  }, []);
+    if (page) {
+      dispatch(fetchAsyncWorkouts(page));
+    }
+  }, [dispatch, page]);
 
   return (
-    <div className="flex justify-center xl:justify-start my-4 xl:ml-4">
-      <Link to={`/workouts?page=1`}>Previous</Link>
-      <Link to={`/workouts?page=2`}>Next</Link>
+    <div className="flex w-full justify-center">
+      <div className="flex justify-between w-32">
+        <Link to={`/workouts?page=1`}>Previous</Link>
+        <Link to={`/workouts?page=2`}>Next</Link>
+      </div>
     </div>
   );
 };

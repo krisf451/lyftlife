@@ -18,9 +18,13 @@ const initialState = {
 
 export const fetchAsyncWorkouts = createAsyncThunk(
   "workouts/fetchAsyncWorkouts",
-  async () => {
-    const res = await fetchWorkouts();
-    return res.data.workouts;
+  async (page, thunkAPI) => {
+    try {
+      const res = await fetchWorkouts(page);
+      return res.data.workouts;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
   }
 );
 
